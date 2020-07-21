@@ -1,0 +1,24 @@
+<Project>
+<Target Name="AddPackageAliases" BeforeTargets="ResolveReferences" Outputs="%(PackageReference.Identity)">
+    <!-- 
+        NOTE; Reference rewrite trick to allow usage of multiple libraries with colliding namespaces.
+        USAGE;
+            1. Define your package reference with an additional Alias property:
+                <PackageReference Include="LinqKit.EntityFramework" Version="1.1.17" Alias="LinqKitEF" />
+                <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.17" Alias="LinqKitEFCore" />
+            2. Within the relevant code files, include the alias name:
+                extern alias LinqKitEFCore;
+            3. Use the colliding namespace or types through the alias, which basically replaces the `global` namespace:
+                using LiqKitEFCore::LinqKit; // Instead of global::[LinqKit.EntityFramework]::LinqKit.
+     -->
+    <PropertyGroup>
+      <AliasPackageReference>@(PackageReference->'%(Identity)')</AliasPackageReference>
+      <AliasName>@(PackageReference->'%(Alias)')</AliasName>
+    </PropertyGroup>
+    <ItemGroup>
+      <ReferencePath Condition="'%(FileName)'=='$(AliasPackageReference)'">
+        <Aliases>$(AliasName)</Aliases>
+      </ReferencePath>
+    </ItemGroup>
+  </Target>
+</Project>

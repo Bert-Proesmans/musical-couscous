@@ -1,0 +1,4 @@
+<!-- Glue code that extends the default MSBuild process with handrolled operations -->
+<Project>
+    <Project Include="$(MSBuildThisDirectory)../build/AssemblyData.Build.props" />
+</Project>
