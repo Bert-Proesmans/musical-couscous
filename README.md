@@ -21,12 +21,12 @@ Explicitness might lead to less concise code, but experience will help building 
 * Attempt to create as much [Pure](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.contracts.pureattribute?redirectedfrom=MSDN&view=netstandard-2.0) functions as possible!
 * Use TODO, NOTE, WARN and ERROR within comments to clarify information that the code isn't explicitly mentioning. Do not
 confuse these words with their counterparts in logging! Code comments are about code structure and algorithmic invariants.
-** `TODO(${Author}): ${Description}` to indicate skipped or additional work
-** `NOTE(${Author}): ${Description}` to indicate implicit information
-** `WARN(${Author}): ${Description}` to indicate handled edge cases
-** `ERROR(${Author}): ${Description}` to indicate unhandled edge cases and other input not explicitly handled/not conforming
+  * `TODO(${Author}): ${Description}` to indicate skipped or additional work
+  * `NOTE(${Author}): ${Description}` to indicate implicit information
+  * `WARN(${Author}): ${Description}` to indicate handled edge cases
+  * `ERROR(${Author}): ${Description}` to indicate unhandled edge cases and other input not explicitly handled/not conforming
 algorithmic invariants.
-** -> WARN and ERROR are rarely used but are mentioned should a specific case arise that tends to call for them.
+    -> WARN and ERROR are rarely used but are mentioned should a specific case arise that tends to call for them.
 * Make proper use of logging levels. TRACE, INFO, WARNING, ERROR and FATAL. Do not confuse these words with their
 counterparts in code comments! Log levels are about tracing program flow and data validation. Make note that everything 
 below FATAL is expected, FATAL is for unforeseen exceptions that must trigger some alert in principle.
@@ -42,7 +42,7 @@ dynamic solutions to map between them.
 **Note that logical equality is either value-based or identifier based.** We're stuck with object.Equals, so override object.Equals 
 with an implementation that holds the most sense. Structural equality is NOT recursive, so delegate to the inner values when in doubt.
 
-> C# v9 will introduce a lot more interesting stuff regarding record classes and immutability!
+> C# v9 will introduce a lot more interesting stuff regarding record classes (=pure value objects) and immutability!
 
 ## Project setup
 
@@ -60,12 +60,12 @@ be handled by a companion piece of software etc.
 ### Build
 
 * Make use of the repository properties when building projects
-** -p:VersionPrefix=1.0.3 
-** -p:VersionSuffix=beta (suffix present means nuget package is pre-release!)
-** -p:SourceRevisionId=(hash)
-** -p:RepositoryUrl=https://github.com/Bert-Proesmans/Musical-Couscous 
-** -p:RepositoryType=git 
-** -p:RepositoryBranch=develop
+  * -p:VersionPrefix=1.0.3 
+  * -p:VersionSuffix=beta (suffix present means nuget package is pre-release!)
+  * -p:SourceRevisionId=(hash)
+  * -p:RepositoryUrl=https://github.com/Bert-Proesmans/Musical-Couscous 
+  * -p:RepositoryType=git 
+  * -p:RepositoryBranch=develop
 * -p:AssemblyVersion does not carry SEMVER semantics! Best to keep this value limited to "${major}.${minor}" format!
 There is uncertainty about the way CLR should load dependencies (exact match or being lenient), so this advice will
 probably ping-pong around a few times.
